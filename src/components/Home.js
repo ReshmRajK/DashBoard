@@ -21,7 +21,7 @@ import { Chart as ChartJS, LineElement, Legend, CategoryScale, LinearScale, Poin
 import { Pie, PieChart } from 'recharts'
 
 ChartJS.register(
-     LineElement, Legend,
+    LineElement, Legend,
     CategoryScale, LinearScale, PointElement
 )
 
@@ -30,7 +30,7 @@ function Home() {
 
     const [tableData, setTableData] = useState([])
     const [graphData, setGraphData] = useState(null)
-    const [pieChartData, setPieChartData] = useState(null)
+    const [pieChartData, setPieChartData] = useState({})
 
 
     const getTableData = async () => {
@@ -73,10 +73,15 @@ function Home() {
         if (result.data.length > 0) {
             setPieChartData({
                 labels: result.data.map(item => item.label),
+
                 datasets: [{
                     label: 'value',
-                    data: result.data.map(item => item.value)
-                }]
+                    data: result.data.map(item => item.value),
+                    fill: true,
+                    backgroundColor: 'green',
+
+                }],
+
             })
 
         }
@@ -84,21 +89,6 @@ function Home() {
             console.log('No Data');
         }
 
-        // const label = [];
-        // const data = [];
-        // for(var i of result.data) {
-        //     label.push(i.label);
-        //     data.push(i.value)
-        // }
-
-        // setPieChartData({
-        //              labels: result.data.map(item => item.label),
-        //              datasets: [{
-        //                 label: 'value',
-        //                 data: result.data.map(item => item.value),
-                        
-        //              }]
-        //         })
 
     }
     console.log(pieChartData);
@@ -175,11 +165,12 @@ function Home() {
 
                             <Col lg={3} className='column_content'>
 
-                            {pieChartData!==null ? (
-                                    <Pie data={pieChartData} />
-                                ) : (
-                                    <h1>No data</h1>
-                                )}
+
+                                {
+                                    pieChartData && pieChartData.datasets && (
+                                        <Pie data={pieChartData} />
+                                    )
+                                }
                             </Col>
                         </Row>
                     </Container>
