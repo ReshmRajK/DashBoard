@@ -1,0 +1,62 @@
+.left_section {
+    background-image: url('c:\Users\HP\Desktop\Arab_Industries\dashboard\src\UI\Assets\Rectangle 1.png');
+}
+
+.right_section {
+    background-color: #E5E4E2;
+}
+
+h5 {
+
+    font-family: 'Racing Sans One', sans-serif;
+
+}
+
+.dashboard {
+    margin-top: 8rem;
+    background-color: white;
+    height: 2.5rem;
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+}
+
+b {
+    font-size: 15px;
+}
+
+.menu_item {
+    margin-top: 12px;
+}
+
+.left_side_menu_section {
+    background-color: black;
+    height: 2.5rem;
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+}
+
+.wish {
+    font-size: 22px;
+}
+
+.right_side_first_section {
+    background-color: white;
+    height: 3.5rem;
+    width: 10rem;
+    text-align: center;
+    padding: 2px;
+    border-radius: 10px;
+}
+
+#name {
+    margin-top: 5px;
+}
+
+#email {
+    font-size: 10px;
+    margin-top: -17px;
+}
+
+.column_content {
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}

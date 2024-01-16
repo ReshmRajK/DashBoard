@@ -68,3 +68,12 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/d
 ### `npm run build` fails to minify
 
 This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+
+
+//UI DESIGN
+react bootstrap is used for ui design
+
+//data display
+table is used for to display the data 
+chartjs is installed for to display the data in simple line graph
+rcharts is used for to display the data in pie chart
