@@ -17,11 +17,12 @@ import Table from 'react-bootstrap/Table';
 import Card from 'react-bootstrap/Card';
 import { graphDataApi, pieChartDataApi, tableDataApi } from '../service/allApi'
 import { Line } from 'react-chartjs-2'
-import { Chart as ChartJS, Title, Tooltip, LineElement, Legend, CategoryScale, LinearScale, PointElement, Filler } from 'chart.js';
+import { Chart as ChartJS, LineElement, Legend, CategoryScale, LinearScale, PointElement } from 'chart.js';
 import { Pie, PieChart } from 'recharts'
+
 ChartJS.register(
-    Title, Tooltip, LineElement, Legend,
-    CategoryScale, LinearScale, PointElement, Filler
+     LineElement, Legend,
+    CategoryScale, LinearScale, PointElement
 )
 
 
@@ -83,8 +84,25 @@ function Home() {
             console.log('No Data');
         }
 
+        // const label = [];
+        // const data = [];
+        // for(var i of result.data) {
+        //     label.push(i.label);
+        //     data.push(i.value)
+        // }
+
+        // setPieChartData({
+        //              labels: result.data.map(item => item.label),
+        //              datasets: [{
+        //                 label: 'value',
+        //                 data: result.data.map(item => item.value),
+                        
+        //              }]
+        //         })
+
     }
     console.log(pieChartData);
+
     useEffect(() => {
         getTableData()
         getGraphData()
@@ -157,22 +175,11 @@ function Home() {
 
                             <Col lg={3} className='column_content'>
 
-                                <Card style={{ width: '10rem' }} className='text-center'>
-
-                                    <Card.Body style={{}}>
-
-
-                                        <PieChart >
-                                            {pieChartData !== null ? (
-                                                <Pie data={pieChartData} dataKey="value" nameKey="label" cx="50%" cy="50%" outerRadius={50} fill="#8884d8"></Pie>
-                                            ) : (
-                                                <h1>No data</h1>
-                                            )}
-                                        </PieChart>
-
-
-                                    </Card.Body>
-                                </Card>
+                            {pieChartData!==null ? (
+                                    <Pie data={pieChartData} />
+                                ) : (
+                                    <h1>No data</h1>
+                                )}
                             </Col>
                         </Row>
                     </Container>
