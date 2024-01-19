@@ -16,13 +16,14 @@ import { Col, Container, Row } from 'react-bootstrap'
 import Table from 'react-bootstrap/Table';
 import Card from 'react-bootstrap/Card';
 import { graphDataApi, pieChartDataApi, tableDataApi } from '../service/allApi'
-import { Line } from 'react-chartjs-2'
-import { Chart as ChartJS, LineElement, Legend, CategoryScale, LinearScale, PointElement } from 'chart.js';
-import { Pie, PieChart } from 'recharts'
+import { Line, Pie } from 'react-chartjs-2'
+import { Chart as ChartJS, LineElement, Legend, CategoryScale, LinearScale, PointElement, ArcElement, Tooltip } from 'chart.js';
+
 
 ChartJS.register(
-    LineElement, Legend,
-    CategoryScale, LinearScale, PointElement
+    LineElement,
+    Legend,
+    CategoryScale, LinearScale, PointElement, ArcElement, Tooltip
 )
 
 
@@ -30,15 +31,13 @@ function Home() {
 
     const [tableData, setTableData] = useState([])
     const [graphData, setGraphData] = useState(null)
-    const [pieChartData, setPieChartData] = useState({})
+    const [pieChartData, setPieChartData] = useState(null)
 
 
     const getTableData = async () => {
         const { data } = await tableDataApi()
         setTableData(data)
     }
-
-
 
     const getGraphData = async () => {
         const result = await graphDataApi()
@@ -48,10 +47,11 @@ function Home() {
                 datasets: [{
                     label: 'y',
                     data: result.data.map(item => item.y),
-                    borderColor: 'skyblue',
+                    borderColor: 'skyBlue',
                     pointBorderWidth: 4,
-                    tension: 0.5
-                }]
+                    tension: 0.35
+                }],
+
             })
 
         }
@@ -59,27 +59,44 @@ function Home() {
             console.log('No Data');
         }
     }
-    const options = {
-        plugins: {
-            legend: false
-        },
-    }
 
+    const options = {
+
+        scales: {
+            y: {
+                min: 0,
+                ticks: {
+                    stepSize: 5,
+                    callback: (value) => value + 'k'
+                }
+            },
+            x: {
+                grid: {
+                    display: true,
+
+                }
+
+            }
+
+        }
+    }
 
 
     const getPieChartData = async () => {
         const result = await pieChartDataApi()
-        console.log(result.data);
         if (result.data.length > 0) {
             setPieChartData({
+
                 labels: result.data.map(item => item.label),
-
                 datasets: [{
-                    label: 'value',
                     data: result.data.map(item => item.value),
-                    fill: true,
-                    backgroundColor: 'green',
-
+                    backgroundColor: [
+                        '#50C878',
+                        '#ECFFDC',
+                        '#C1E1C1',
+                        '#AFE1AF',
+                        '#9FE2BF'
+                    ]
                 }],
 
             })
@@ -89,9 +106,7 @@ function Home() {
             console.log('No Data');
         }
 
-
     }
-    console.log(pieChartData);
 
     useEffect(() => {
         getTableData()
@@ -154,7 +169,7 @@ function Home() {
 
                     <Container className='mt-5'>
                         <Row>
-                            <Col lg={8} className=' me-5 column_content' >
+                            <Col lg={8} className=' me-5 column_content bg-white mt-3' style={{ padding: '1px' }} >
                                 {graphData !== null ? (
                                     <Line data={graphData} options={options} />
                                 ) : (
@@ -163,18 +178,21 @@ function Home() {
 
                             </Col>
 
-                            <Col lg={3} className='column_content'>
-
-
+                            <Col lg={3} className='column_content bg-white mt-3' style={{ height: '400px' }}>
                                 {
-                                    pieChartData && pieChartData.datasets && (
-                                        <Pie data={pieChartData} />
+                                    pieChartData !== null ? (
+                                        <Pie data={pieChartData}></Pie>
+
+                                    ) : (
+                                        <h1>No data</h1>
                                     )
+
+
                                 }
+
                             </Col>
                         </Row>
                     </Container>
-
 
                     <Container className='mt-5 mb-5'>
                         <Row>
